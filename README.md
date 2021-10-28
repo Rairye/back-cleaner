@@ -6,7 +6,7 @@ Server-side Python tool for escaping script tags and converting characters into 
 This function escapes script tags with backslashes.
 
 
-## Sample
+### Sample
 
 ```python
 from back_cleaner.cleaner import escape_script_tags
@@ -27,7 +27,7 @@ This function converts the following characters into the HTML entity equivalents
 5. Single quote (')
 
 
-## Sample
+### Sample
 
 ```python
 from back_cleaner.cleaner import replace_with_ents
