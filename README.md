@@ -1,6 +1,13 @@
 # back-cleaner
 Server-side Python tool for escaping script tags and converting characters into HTML entity equivalents (no regex).
 
+## Installation
+
+Install with pip:
+
+pip install back-cleaner
+
+
 ## def escape_script_tags(input_str)
 
 This function escapes script tags with backslashes.
