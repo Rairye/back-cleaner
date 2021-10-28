@@ -18,7 +18,7 @@ print(result)
 
 ## def replace_with_ents(input_str)
 
-Converts the following characters into the HTML entity equivalents.
+This function converts the following characters into the HTML entity equivalents.
 
 1. Ampersand (&)
 2. Less than (<)
