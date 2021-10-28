@@ -1,5 +1,5 @@
 # back-cleaner
-Server-side Python tool for escaping script tags and converting characters into HTML entities (no regex).
+Server-side Python tool for escaping script tags and converting characters into HTML entity equivalents (no regex).
 
 ## def escape_script_tags(input_str)
 
