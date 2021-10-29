@@ -102,7 +102,3 @@ def replace_with_ents(input_str):
         result.append(input_str[last_replacement:])
 
     return "".join(result)
-
-source = "<script>hey you guys </script>hey<>"
-print(escape_script_tags(source))
-print(replace_with_ents(source))
