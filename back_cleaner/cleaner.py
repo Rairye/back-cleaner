@@ -30,7 +30,7 @@ def escape_script_tags(input_str):
     if type(input_str) != str:
         return input_str
 
-    result = ""
+    result = []
     last_open = None
     last_replacement = None
     has_open = False
@@ -40,23 +40,23 @@ def escape_script_tags(input_str):
             current_char = input_str[i];
             if current_char == "<" and has_open == False:
                 if last_replacement == None or (last_replacement != None and i - last_replacement > 1):
-                    result += input_str[0 if last_replacement == None else last_replacement + 1 : i]
+                    result.append(input_str[0 if last_replacement == None else last_replacement + 1 : i])
                 last_open = i
                 has_open = True
                 
             
             elif (current_char == "<" and has_open == True):
-                    result+=input_str[last_open: i]
+                    result.append(input_str[last_open: i])
                     last_open = i
 
             
             elif (current_char == ">" and has_open == True):
                     search_string = input_str[last_open+1: i].lower()
                     if (not strip_non_alpha(search_string).startswith("script")):
-                            result += input_str[last_open : i+1]
+                            result.append(input_str[last_open : i+1])
                     
                     else:
-                        result += ("<\\" + input_str[last_open + 1: i+1])
+                        result.append(("<\\" + input_str[last_open + 1: i+1]))
                 
                     has_open = False
                     last_replacement = i;
@@ -71,9 +71,12 @@ def escape_script_tags(input_str):
     
             
     if has_open == True:
-        return result + input_str[last_open:]
+        result.append(input_str[last_open:])
+        
+    if input_length - last_replacement > 1:
+        result.append(input_str[last_replacement+1:])
     
-    return result if input_length - 1 == last_replacement else (result+input_str[last_replacement+1:])
+    return "".join(result)
 
 
 def replace_with_ents(input_str):
@@ -81,7 +84,7 @@ def replace_with_ents(input_str):
         return input_str
 
     reserved_chars = {"&" : "&amp;", "<" : "&lt;", ">" : "&gt;", "\"" : "&quot;", "\'" : "&#39;"}
-    result = ""
+    result = []
     last_replacement = 0;
     string_len = len(input_str)
 
@@ -89,11 +92,17 @@ def replace_with_ents(input_str):
         char = input_str[i]
         if char in reserved_chars:
             replacement = reserved_chars[char]
-            result+= ((input_str[last_replacement : i ] + replacement) if  i > last_replacement else replacement)
+            result.append(((input_str[last_replacement : i ] + replacement) if  i > last_replacement else replacement))
             last_replacement = i + 1
 
     if last_replacement == 0:
         return input_str
 
-    return result if last_replacement == string_len else result + input_str[last_replacement]
+    if last_replacement !=string_len:
+        result.append(input_str[last_replacement:])
 
+    return "".join(result)
+
+source = "<script>hey you guys </script>hey<>"
+print(escape_script_tags(source))
+print(replace_with_ents(source))
